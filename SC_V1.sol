@@ -84,5 +84,14 @@ contract LuxuryWatchNFT is ERC721Enumerable, Ownable {
         watchMetadataURI[_tokenId] = _newMetadataURI;
     }
 
-    // Additional functions can be added for more features
+    // On peut mettre ici d'autres fonctions si besoin
 }
+
+//fonction approveForSale permet au propriétaire d'un NFT de donner l'approbation à un autre utilisateur pour vendre la montre NFT.
+//fonction sellWatchNFT a été modifiée pour inclure la logique de paiement des royalties au créateur original du NFT.
+//Un historique de propriété est enregistré pour chaque NFT dans le mapping watchOwnershipHistory.
+//fonction updateMetadataURI permet au propriétaire du NFT de mettre à jour
+
+// RÉSUMÉ GÉNÉRAL DU CODE :
+//Ce code est un point de départ qui crée un token NFT pour chaque montre avec des détails comme le nom, le modèle, le numéro de série pour la traçabilité, et le prix.
+//Il comprend des événements pour la création et la vente.
