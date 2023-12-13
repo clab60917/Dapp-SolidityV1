@@ -12,7 +12,7 @@ contract LuxuryWatchNFT is ERC721Enumerable, Ownable {
     Counters.Counter private _tokenIds;
 
     struct Watch {
-        string name;
+        string brand;
         string model;
         string serialNumber;
         uint256 price;
@@ -30,13 +30,13 @@ contract LuxuryWatchNFT is ERC721Enumerable, Ownable {
 
     constructor() ERC721("LuxuryWatchNFT", "LWNFT") {}
 
-    function createWatchNFT(string memory _name, string memory _model, string memory _serialNumber, uint256 _price, string memory _metadataURI) public onlyOwner {
+    function createWatchNFT(string memory _brand, string memory _model, string memory _serialNumber, uint256 _price, string memory _metadataURI) public onlyOwner {
         _tokenIds.increment();
         uint256 newItemId = _tokenIds.current();
         _mint(msg.sender, newItemId);
 
         Watch memory newWatch = Watch({
-            name: _name,
+            brand: _brand,
             model: _model,
             serialNumber: _serialNumber,
             price: _price
@@ -46,7 +46,7 @@ contract LuxuryWatchNFT is ERC721Enumerable, Ownable {
         watchOwnershipHistory[newItemId].push(msg.sender);
         watchMetadataURI[newItemId] = _metadataURI;
 
-        emit WatchNFTCreated(newItemId, _name, _model, _serialNumber);
+        emit WatchNFTCreated(newItemId, _brand, _model, _serialNumber);
     }
 
     function approveForSale(uint256 _tokenId, address _approved, uint256 _price) public {
