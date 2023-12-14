@@ -96,7 +96,7 @@ contract LuxuryWatch is ERC721, Ownable {
     }
 
 
-    // On peut mettre ici d'autres fonctions si besoin
+    // Autres fonctions si besoin
 
 
 //fonction approveForSale permet au propriétaire d'un NFT de donner l'approbation à un autre utilisateur pour vendre la montre NFT.
@@ -108,5 +108,4 @@ contract LuxuryWatch is ERC721, Ownable {
 //Ce code est un point de départ qui crée un token NFT pour chaque montre avec des détails comme le nom, le modèle, le numéro de série pour la traçabilité, et le prix.
 //Il comprend des événements pour la création et la vente.
 
-    // ...
 }
