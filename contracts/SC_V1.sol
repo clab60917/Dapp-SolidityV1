@@ -7,11 +7,13 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract LuxuryWatch is ERC721, Ownable {
-    constructor(address initialOwner)
+
+    constructor()
         ERC721("LuxuryWatch", "MTK")
-        Ownable(initialOwner)
+        Ownable(msg.sender)
+
     {}
-}
+
 
     struct Watch {
         string brand;
@@ -20,10 +22,11 @@ contract LuxuryWatch is ERC721, Ownable {
         uint256 price;
     }
 
-    uint256 public constant royaltyPercentage = 5;
-    mapping(uint256 => Watch) public watchInfo;
-    mapping(uint256 => address[]) public watchOwnershipHistory;
-    mapping(uint256 => string) public watchMetadataURI;
+    uint256  constant royaltyPercentage = 5;
+    uint256 _tokenIds;
+    mapping(uint256 => Watch)  watchInfo;
+    mapping(uint256 => address[])  watchOwnershipHistory;
+    mapping(uint256 => string)  watchMetadataURI;
 
     // Définition des erreurs personnalisées
     error Unauthorized(address caller);
@@ -39,11 +42,11 @@ contract LuxuryWatch is ERC721, Ownable {
     event WatchNFTSold(uint256 indexed tokenId, address from, address to, uint256 price);
     event ApprovalForSale(uint256 indexed tokenId, address indexed approved, uint256 price);
 
-    constructor() ERC721("LuxuryWatchNFT", "LWNFT") {}
+    //constructor() ERC721("LuxuryWatchNFT", "LWNFT") {}
 
-    function createWatchNFT(string memory _brand, string memory _model, string memory _serialNumber, uint256 _price, string memory _metadataURI) public onlyOwner {
-        _tokenIds.increment();
-        uint256 newItemId = _tokenIds.current();
+    function createWatchNFT(string memory _brand, string memory _model, string memory _serialNumber, uint256 _price, string memory _metadataURI) public  {
+        _tokenIds++;
+        uint256 newItemId = _tokenIds;
         _mint(msg.sender, newItemId);
 
         Watch memory newWatch = Watch({
@@ -57,7 +60,7 @@ contract LuxuryWatch is ERC721, Ownable {
         watchOwnershipHistory[newItemId].push(msg.sender);
         watchMetadataURI[newItemId] = _metadataURI;
 
-        emit WatchNFTCreated(newItemId, _name, _model, _serialNumber);
+        emit WatchNFTCreated(newItemId, _brand, _model, _serialNumber);
     }
 
     function approveForSale(uint256 _tokenId, address _approved, uint256 _price) public {
@@ -95,6 +98,7 @@ contract LuxuryWatch is ERC721, Ownable {
     
     }
 
+}
 
     // Autres fonctions si besoin
 
@@ -107,5 +111,3 @@ contract LuxuryWatch is ERC721, Ownable {
 // RÉSUMÉ GÉNÉRAL DU CODE :
 //Ce code est un point de départ qui crée un token NFT pour chaque montre avec des détails comme le nom, le modèle, le numéro de série pour la traçabilité, et le prix.
 //Il comprend des événements pour la création et la vente.
-
-}
